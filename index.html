@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Monitoring Mahasiswa</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{ scroll-behavior:smooth; box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family:'Poppins',Arial,sans-serif;
+  background:#0a0a1a;
+}
+
+/* NAVBAR */
+.navbar{ background:rgba(10,10,26,.95); backdrop-filter:blur(10px); border-bottom:1px solid rgba(124,58,237,.2); }
+
+/* HERO */
+.home{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+}
+
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(70px);
+  opacity:.45;
+  pointer-events:none;
+}
+.orb1{ width:450px; height:450px; background:#7c3aed; top:-120px; left:-120px; }
+.orb2{ width:380px; height:380px; background:#2563eb; bottom:-100px; right:-100px; }
+.orb3{ width:220px; height:220px; background:#06b6d4; top:45%; left:55%; }
+
+.home-inner{ position:relative; z-index:2; }
+
+.badge-tag{
+  display:inline-block;
+  background:rgba(124,58,237,.2);
+  border:1px solid rgba(124,58,237,.45);
+  color:#a5b4fc;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:3px;
+  padding:6px 18px;
+  border-radius:30px;
+  margin-bottom:22px;
+  text-transform:uppercase;
+}
+
+.home h1{
+  font-size:50px;
+  font-weight:800;
+  max-width:900px;
+  line-height:1.15;
+  animation:float 4s ease-in-out infinite;
+  background:linear-gradient(90deg,#fff 30%,#a5b4fc,#67e8f9);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin:0 auto;
+}
+
+.line{
+  width:80px; height:4px;
+  background:linear-gradient(90deg,#7c3aed,#06b6d4);
+  margin:25px auto;
+  border-radius:10px;
+}
+
+.home p{ color:#94a3b8; font-size:15px; }
+
+@keyframes float{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-14px); }
+}
+
+/* SECTION */
+section{ padding:90px 0; }
+
+/* ANGGOTA SECTION */
+#anggota{ background:#0f172a; position:relative; overflow:hidden; }
+
+#anggota::before{
+  content:"";
+  position:absolute;
+  width:500px; height:500px;
+  background:radial-gradient(circle,rgba(124,58,237,.12),transparent 70%);
+  top:-100px; right:-100px;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.section-label{
+  display:inline-block;
+  color:#7c3aed;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+
+.section-title{
+  color:white;
+  font-weight:700;
+  font-size:32px;
+  margin-bottom:0;
+}
+
+.section-divider{
+  width:50px; height:3px;
+  background:linear-gradient(90deg,#7c3aed,#06b6d4);
+  margin:14px auto 55px;
+  border-radius:10px;
+}
+
+/* MEMBER CARD */
+.member-card{
+  position:relative;
+  background:linear-gradient(145deg,#1e293b,#0f172a);
+  border:1px solid rgba(124,58,237,.2);
+  padding:35px 20px 28px;
+  border-radius:20px;
+  text-align:center;
+  transition:.4s ease;
+  overflow:hidden;
+  height:100%;
+}
+
+.member-card::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background:linear-gradient(90deg,#7c3aed,#06b6d4);
+  opacity:0;
+  transition:.4s;
+}
+
+.member-card:hover{
+  transform:translateY(-10px);
+  border-color:rgba(124,58,237,.55);
+  box-shadow:0 20px 50px rgba(124,58,237,.22);
+}
+
+.member-card:hover::before{ opacity:1; }
+
+.member-avatar{
+  width:62px; height:62px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 14px;
+  font-size:20px;
+  font-weight:700;
+  color:white;
+  box-shadow:0 5px 20px rgba(124,58,237,.4);
+}
+
+.member-card h4{
+  color:white;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:4px;
+}
+
+.member-nim{
+  display:inline-block;
+  margin-top:10px;
+  padding:4px 14px;
+  border-radius:20px;
+  background:rgba(124,58,237,.15);
+  border:1px solid rgba(124,58,237,.3);
+  color:#a5b4fc;
+  font-size:11px;
+  font-weight:500;
+}
+
+/* ARTIKEL SECTION */
+#artikel{ background:#0a0a1a; }
+
+.artikel-wrapper{
+  background:linear-gradient(135deg,#1e1b4b,#0f172a);
+  border:1px solid rgba(99,102,241,.25);
+  border-radius:24px;
+  padding:60px 50px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.artikel-wrapper::before{
+  content:"";
+  position:absolute;
+  width:350px; height:350px;
+  background:radial-gradient(circle,rgba(124,58,237,.25),transparent);
+  top:-120px; right:-120px;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.artikel-wrapper::after{
+  content:"";
+  position:absolute;
+  width:250px; height:250px;
+  background:radial-gradient(circle,rgba(6,182,212,.2),transparent);
+  bottom:-80px; left:-80px;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.pdf-icon-wrap{
+  width:80px; height:80px;
+  background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(6,182,212,.3));
+  border:1px solid rgba(124,58,237,.4);
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 25px;
+  font-size:32px;
+  position:relative;
+  z-index:1;
+}
+
+.artikel-wrapper h2{
+  color:white;
+  font-weight:700;
+  font-size:26px;
+  margin-bottom:10px;
+  position:relative; z-index:1;
+}
+
+.artikel-wrapper p{
+  color:#94a3b8;
+  margin-bottom:30px;
+  font-size:14px;
+  position:relative; z-index:1;
+}
+
+.btn-artikel{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 38px;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  color:white !important;
+  font-weight:600;
+  font-size:15px;
+  border-radius:50px;
+  text-decoration:none;
+  border:none;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 10px 30px rgba(124,58,237,.4);
+  position:relative;
+  z-index:1;
+}
+
+.btn-artikel:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 40px rgba(124,58,237,.6);
+}
+
+.file-note{
+  margin-top:18px;
+  color:#475569;
+  font-size:12px;
+  position:relative; z-index:1;
+}
+
+.file-note code{
+  color:#7c3aed;
+  background:rgba(124,58,237,.1);
+  padding:2px 8px;
+  border-radius:4px;
+}
+
+.btn-alt{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 24px;
+  background:rgba(124,58,237,.15);
+  border:1px solid rgba(124,58,237,.4);
+  color:#a5b4fc !important;
+  font-size:13px;
+  font-weight:500;
+  border-radius:50px;
+  text-decoration:none;
+  transition:.3s;
+}
+
+.btn-alt:hover{
+  background:rgba(124,58,237,.3);
+  border-color:rgba(124,58,237,.7);
+}
+
+/* FILE BTN GROUP */
+.file-btn-group{
+  display:flex;
+  gap:24px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:10px;
+  position:relative;
+  z-index:1;
+}
+
+.file-btn-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:30px 28px;
+  width:220px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  transition:.3s;
+}
+
+.file-btn-card:hover{
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.2);
+  transform:translateY(-5px);
+}
+
+.file-type-icon{
+  width:60px; height:60px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:4px;
+}
+
+.pdf-color{
+  color:#f87171;
+  background:rgba(248,113,113,.12);
+  border:1px solid rgba(248,113,113,.25);
+}
+
+.docx-color{
+  color:#60a5fa;
+  background:rgba(96,165,250,.12);
+  border:1px solid rgba(96,165,250,.25);
+}
+
+.file-type-label{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.file-type-desc{
+  font-size:11px;
+  color:#64748b;
+  margin-bottom:6px;
+}
+
+.btn-file{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 22px;
+  border-radius:50px;
+  font-size:13px;
+  font-weight:600;
+  text-decoration:none;
+  transition:.3s;
+  width:100%;
+  justify-content:center;
+}
+
+.btn-pdf{
+  background:linear-gradient(135deg,#dc2626,#f97316);
+  color:white !important;
+  box-shadow:0 6px 20px rgba(220,38,38,.35);
+}
+
+.btn-pdf:hover{
+  box-shadow:0 10px 28px rgba(220,38,38,.55);
+  color:white !important;
+}
+
+.btn-docx{
+  background:linear-gradient(135deg,#1d4ed8,#0ea5e9);
+  color:white !important;
+  box-shadow:0 6px 20px rgba(29,78,216,.35);
+}
+
+.btn-docx:hover{
+  box-shadow:0 10px 28px rgba(29,78,216,.55);
+  color:white !important;
+}
+
+.btn-file-alt{
+  font-size:11px;
+  color:#475569;
+  text-decoration:none;
+  transition:.2s;
+  margin-top:2px;
+}
+
+.btn-file-alt:hover{
+  color:#94a3b8;
+}
+
+/* FOOTER */
+footer{
+  background:#060611;
+  color:#475569;
+  padding:30px;
+  border-top:1px solid rgba(255,255,255,.05);
+  font-size:13px;
+}
+
+footer span{ color:#7c3aed; }
+
+@media(max-width:768px){
+  .home h1{ font-size:28px; }
+  .artikel-wrapper{ padding:35px 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" style="color:#a5b4fc;">KELOMPOK 2</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#home">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" href="#anggota">ANGGOTA</a></li>
+        <li class="nav-item"><a class="nav-link" href="#artikel">ARTIKEL</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="home">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="home-inner">
+    <div class="badge-tag">Kelompok 2 · 2026</div>
+    <h1>PENGEMBANGAN DASHBOARD MONITORING MAHASISWA MENGGUNAKAN PYTHON</h1>
+    <div class="line"></div>
+    <p>Website Informasi Kelompok</p>
+  </div>
+</section>
+
+<!-- ANGGOTA -->
+<section id="anggota">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="text-center">
+      <div class="section-label">Tim Kami</div>
+      <h2 class="section-title">IDENTITAS KELOMPOK</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-4 col-sm-6">
+        <div class="member-card">
+          <h4>Fatih Harits</h4>
+          <div class="member-nim">2503015074</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="member-card">
+          <h4>Ibnu Daffa</h4>
+          <div class="member-nim">2503015026</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="member-card">
+          <h4>Basil Khalifahdin</h4>
+          <div class="member-nim">2503015064</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="member-card">
+          <h4>Alfajri Ilham</h4>
+          <div class="member-nim">2503015073</div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="member-card">
+          <h4>Muhammad Abdi</h4>
+          <div class="member-nim">2503015038</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARTIKEL -->
+<section id="artikel">
+  <div class="container">
+    <div class="artikel-wrapper">
+
+      <div class="pdf-icon-wrap">📄</div>
+
+      <h2>ARTIKEL PENELITIAN</h2>
+      <p>Baca atau unduh artikel ilmiah penelitian Kelompok 2 mengenai pengembangan<br>Dashboard Monitoring Mahasiswa menggunakan Python.</p>
+
+      
+<div class="file-btn-group">
+
+  <div class="file-btn-card" style="width:320px;background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(6,182,212,.08));border:1px solid rgba(124,58,237,.35);box-shadow:0 0 30px rgba(124,58,237,.15);">
+    <div class="file-type-icon pdf-color">
+      📄
+    </div>
+    <div class="file-type-label pdf-color">Artikel Ilmiah (PDF)</div>
+    <div class="file-type-desc">Versi final artikel penelitian kelompok</div>
+    <a href="https://angkotjakarta.github.io/Artikel-Ilmiah/ArtikelIlmiah%20Kel%202.pdf" target="_blank" class="btn-file btn-pdf">
+      Buka Artikel PDF
+    </a>
+  </div>
+
+</div>
+
+<div style="margin-top:40px;position:relative;z-index:2;">
+  <div style="display:inline-block;padding:14px 24px;border-radius:999px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);color:#cbd5e1;">
+    ✨ Dashboard Akademik • Data Analytics • Python • Smart Campus ✨
+  </div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<footer class="text-center">
+  © 2026 <span>Kelompok 2</span> · Dashboard Monitoring Mahasiswa
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
